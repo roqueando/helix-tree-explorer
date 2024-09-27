@@ -5,7 +5,7 @@
 //! - A single line string where all graphemes have the same style is represented by a [`Span`].
 //! - A single line string where each grapheme may have its own style is represented by [`Spans`].
 //! - A multiple line string where each grapheme may have its own style is represented by a
-//! [`Text`].
+//!   [`Text`].
 //!
 //! These types form a hierarchy: [`Spans`] is a collection of [`Span`] and each line of [`Text`]
 //! is a [`Spans`].
@@ -433,6 +433,34 @@ impl<'a> From<Spans<'a>> for Text<'a> {
 impl<'a> From<Vec<Spans<'a>>> for Text<'a> {
     fn from(lines: Vec<Spans<'a>>) -> Text<'a> {
         Text { lines }
+    }
+}
+
+impl<'a> From<Text<'a>> for String {
+    fn from(text: Text<'a>) -> String {
+        String::from(&text)
+    }
+}
+
+impl<'a> From<&Text<'a>> for String {
+    fn from(text: &Text<'a>) -> String {
+        let size = text
+            .lines
+            .iter()
+            .flat_map(|spans| spans.0.iter().map(|span| span.content.len()))
+            .sum::<usize>()
+            + text.lines.len().saturating_sub(1); // for newline after each line
+        let mut output = String::with_capacity(size);
+
+        for spans in &text.lines {
+            if !output.is_empty() {
+                output.push('\n');
+            }
+            for span in &spans.0 {
+                output.push_str(&span.content);
+            }
+        }
+        output
     }
 }
 

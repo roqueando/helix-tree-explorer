@@ -64,6 +64,8 @@
 "diagnostic.warning" = { underline = { color = "warning", style = "curl" } }
 "diagnostic.info" = { underline = { color = "info", style = "curl" } }
 "diagnostic.hint" = { underline = { color = "display", style = "curl" } }
+"diagnostic.unnecessary" = { modifiers = ["dim"] }
+"diagnostic.deprecated" = { modifiers = ["crossed_out"] }
 
 "error" = { fg = "error", modifiers = ["bold"] }
 "warning" = { fg = "warning", modifiers = ["bold"] }
@@ -75,6 +77,7 @@
 "markup.list" = { fg = "t4" }
 "markup.bold" = { fg = "t4" }
 "markup.italic" = { fg = "t4" }
+"markup.strikethrough" = { fg = "t4", modifiers = ["crossed_out"] }
 "markup.link.url" = { fg = "t4", modifiers = ["underlined"] }
 "markup.link.text" = { fg = "t4" }
 "markup.quote" = { fg = "t4" }
